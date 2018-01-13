@@ -1,0 +1,48 @@
+package org.usfirst.frc.team1378.visiontracking;
+
+// import org.usfirst.frc.team1378.grip.MyVisionPipeline;
+
+import org.opencv.core.Mat;
+import org.opencv.core.Rect;
+import org.opencv.imgproc.Imgproc;
+
+import edu.wpi.cscore.CvSink;
+import edu.wpi.cscore.CvSource;
+import edu.wpi.cscore.UsbCamera;
+
+import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.vision.VisionRunner;
+import edu.wpi.first.wpilibj.vision.VisionThread;
+import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
+
+
+public class Vision extends IterativeRobot {
+	NetworkTable table;
+	
+	public Vision() {
+		table = NetworkTable.getTable("GRIP/myContoursReport"); // file where the NetworkTable values are stored
+		
+	}
+	
+	public void robotInit() {
+		double[] defaultValue = new double[0];
+		while(true) {
+			double[] areas = table.getNumberArray("area", defaultValue);
+			System.out.print("areas: ");
+			for(double area : areas) {
+				System.out.println(area + " ");
+			}
+			System.out.println();
+			Timer.delay(1);
+		}
+		
+	}
+	
+	@Override
+	public void autonomousInit() {}
+	
+	public void autonomousPeriodic() {}
+}
