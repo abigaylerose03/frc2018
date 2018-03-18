@@ -1,0 +1,56 @@
+package org.usfirst.frc.team1378.robot.subsystems;
+
+import edu.wpi.first.wpilibj.AnalogGyro;
+// import edu.wpi.first.wpilibj.VictorSP;
+import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.TalonSRX;
+import edu.wpi.first.wpilibj.Timer;
+
+import org.usfirst.frc.team1378.robot.RobotMap;
+import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
+
+@SuppressWarnings("deprecation")
+public class Drive extends Subsystem {
+
+	protected static TalonSRX TSRXLD1, TSRXRD1; //Talon SRX Variables
+
+	public static RobotDrive DriveUno; //Robot Drive Variable
+	
+	Gyro gyro;
+	protected static final double Kp = 0.03;
+	
+	protected void initDefaultCommand() {
+		/** --- Initialization --- **/
+		// -- Motor Controllers -- //
+		/** Talon SRX **/
+		/* Drive Train */
+		
+		DriveUno = new RobotDrive(TSRXLD1, TSRXRD1);
+		gyro = new AnalogGyro(1);
+		
+		// Timer timer = new Timer();
+		
+	}
+	
+	public void Move(RobotDrive drive, int time)  {
+		
+		if(time > 0) {
+			double angle = gyro.getAngle();
+			drive.arcadeDrive(1.0, -angle * Kp);
+			drive.stopMotor();
+		     
+			time -= 2;
+		}
+	}
+
+	private void stopMotor() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void arcadeDrive(double d, double e) {
+		// TODO Auto-generated method stub
+		
+	}
+}
